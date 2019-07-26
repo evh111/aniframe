@@ -72,4 +72,5 @@ function getFrameAsJSON() {
       animation.frames[0].push(cell.getAttribute('controller-color'));
     }
   console.log(JSON.stringify(animation, null, 4));
+  $.post('/animation', JSON.stringify(animation, null, 4), null, 'json');
 }

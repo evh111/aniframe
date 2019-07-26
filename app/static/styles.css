@@ -50,6 +50,7 @@ td {
 }
 
 .button {
+  margin: 10px;
   display: inline-block;
   color: #00ff00;
   background: #000000;
@@ -62,6 +63,10 @@ td {
 
 .button:hover {
   transform: scale(1.1);
+}
+
+button:focus {
+  outline: none;
 }
 
 @media screen and (max-width: 480px) {
