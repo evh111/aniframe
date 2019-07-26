@@ -1,7 +1,8 @@
 # Aniframe project
 
-To run the development server locally: flask run
+Run with 
+```
+python aniframe.py
+```
 
-To run the development server on network: flask run --host='192.168.1.88'
-
-Note: The 192.168.1.88' must be changed to the IP of whatever device the server is being ran on
+If using the virtual terminal, press `q` to exit that view.
