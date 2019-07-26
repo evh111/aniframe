@@ -1,9 +1,13 @@
-from flask import render_template
+from flask import render_template, request, url_for
+from app import app
+from json import dumps
 
 
 @app.route('/')
-@app.route('/index')
 def index():
     return render_template('index.html')
 
-from app import app
+@app.route('/animation', methods=['POST'])
+def animation():
+    print(request.get_json(force=True))
+    return '', 200

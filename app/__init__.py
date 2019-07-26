@@ -1,4 +1,10 @@
-from app import routes
-from flask import Flask, send_from_directory
+from flask import Flask
 
-app = Flask(__name__, static_url='path')
+app = Flask(__name__)
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run(host='192.168.1.88')
+
+from app import routes
+
