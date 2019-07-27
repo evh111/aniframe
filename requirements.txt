@@ -1,2 +1,11 @@
 Flask==1.0.2
 python-dotenv==0.9.1
+pytest
+numpy
+asciimatics
+loto # Lockout Tagout module
+
+# The GPIO ;ibrary should still be isntallable on most platforms
+# but we just can't use real pin factories unless we're
+# on a pi
+gpiozero
