@@ -16,3 +16,9 @@ def test_pixel_colors():
     blackPixel = Pixel(0, 0, 0)
     assert blackPixel.getAsciimaticsColor() == Screen.COLOUR_WHITE
     assert blackPixel._getAsciimaticsColorRaw() == Screen.COLOUR_BLACK
+
+def assert_pixel_from_binary():
+    pix = Pixel.fromBinary(0b101)
+    assert pix.r == 1
+    assert pix.g == 0
+    assert pix.b == 1

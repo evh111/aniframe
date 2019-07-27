@@ -14,6 +14,19 @@ class Pixel:
         self.g = g
         self.b = b
 
+    @classmethod
+    def fromBinary(cls, value):
+        """
+        Create a pixel from a value represented with bits
+        b2,b1,b0 where the bits are bools for r, g. & b.
+        
+        Use this as Pixel.fromBinary(value)
+        """
+        r = (value & 0b100) >> 2
+        g = (value & 0b010) >> 1
+        b = (value & 0b001) >> 0
+        return cls(r, g, b)
+
 
     def _getAsciimaticsColorRaw(self):
         # we can use some bitmasking. See asciimatics.Screen colours
@@ -37,8 +50,11 @@ class Pixel:
     def getAsciimaticsChar(self):
         if self._getAsciimaticsColorRaw() == Screen.COLOUR_BLACK:
             return '- '
-        return '■ '
+        return '¤ '
 
 
     def __repr__(self):
         return str((self.r, self.g, self.b))
+
+    def __eq__(self, other):
+        return (self.r, self.g, self.b) == (other.r, other.g, other.b)

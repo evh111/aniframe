@@ -3,10 +3,10 @@ import numpy as np
 
 from app.matrixController.devices.matrixDevice import MatrixDevice
 from app.matrixController.devices.pixel import Pixel
+from app import matrixDataTag
 from asciimatics.screen import Screen
 from asciimatics.screen import ManagedScreen
 from asciimatics.event import KeyboardEvent
-
 from time import sleep
 
 class VirtualMatrix(MatrixDevice):
@@ -15,24 +15,17 @@ class VirtualMatrix(MatrixDevice):
         super().__init__(_M, _N)
         self.currentColumn = 0
 
-        self.workingRow = np.full((1, self.N), Pixel(0, 0, 0))
         # asciimatics requires we draw the whole screen every frame
         # The real physical matrix device may just use
         # one or two rows at a time instead of the whole screen
         self.currentScreen = np.full((self.M, self.N), Pixel(0, 0, 0))
 
-        # draw a blue box in the top left just for initial testing
-        # TODO remove this later
-        self.currentScreen[1:3, 4:10] = Pixel(0,1,1)
-
-    def selectSection(self, section):
-        super().selectSection(section)
 
     def writeTopPixel(self, pixel):
-        self.currentScreen
+        self.currentScreen[self.currentSection][self.currentColumn] = pixel
 
     def writeBottomPixel(self, pixel):
-        pass
+        self.currentScreen[self.currentSection + self.M // 2][self.currentColumn] = pixel
 
     def clock(self):
         self.currentColumn += 1
@@ -42,26 +35,26 @@ class VirtualMatrix(MatrixDevice):
         # for column 0 once we latch it, so I'm
         # gonna emulate it that way for now until
         # we can debug the hardware
-        #self.currentScreen[self.currentSection]
         self.currentColumn = 0
         
-        # draw a row to the console.
-        # The real hardware will display one row at a time
-        # when we latch it, I think.
-
 
     @ManagedScreen
-    def startPainting(self, screen=None):
+    def startRendering(self, screen=None):
         """
         Paint the virtual matrix.
         This returns and stops the painting loop if any input
-        event is detected
+        event is detected.
         """
         screenWidth, screenHeight = screen.dimensions
         numSections = self.M / 2
 
         while True:
-            #screen.clear()
+            screen.refresh()
+            sleep(0.1)
+            ev = screen.get_event()
+            if isinstance(ev, KeyboardEvent):
+                if ev.key_code is ord('q'):
+                    return
             for i in range(0, self.M):
                 for j in range(0, self.N):
                     # accessing array in row-major but asciimatics
@@ -70,16 +63,9 @@ class VirtualMatrix(MatrixDevice):
                     pixel = self.currentScreen[i][j]
                     pixelString = pixel.getAsciimaticsChar()
                     screen.print_at(
-                        pixel.getAsciimaticsChar(),
-                        j * len(pixelString),
-                        i,
-                        colour=pixel.getAsciimaticsColor(),
-                        attr=Screen.A_BOLD
-                    )
-            
-            screen.refresh()
-            sleep(0.1)
-            ev = screen.get_event()
-            if isinstance(ev, KeyboardEvent):
-                if ev.key_code is ord('q'):
-                    return
+                            pixel.getAsciimaticsChar(),
+                            j * len(pixelString),
+                            i,
+                            colour=pixel.getAsciimaticsColor(),
+                            attr=Screen.A_BOLD
+                        )
