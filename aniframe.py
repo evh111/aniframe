@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from app import matrixDataTag
 from app.matrixController.controller import Controller
 
 from threading import Thread
@@ -21,7 +22,7 @@ if __name__ == '__main__':
     def launchController(controller):
         controller.begin()
 
-    @LockoutTagout('matrixData')
+    @LockoutTagout(matrixDataTag)
     def updateData(data):
         controller.updateData(data)
 
@@ -35,6 +36,7 @@ if __name__ == '__main__':
     def animation():
         updateData(request.get_json(force=True))
         return '', 200
+
 
     # How do we want to set this flag? Using argparse? Click?
     controller = Controller(useVirtualMatrix=True)

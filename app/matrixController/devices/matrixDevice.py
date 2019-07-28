@@ -34,5 +34,9 @@ class MatrixDevice(metaclass=abc.ABCMeta):
         return
 
     @abc.abstractmethod
-    def latch(self):
+    def setLatch(self):
+        return
+
+    @abc.abstractmethod
+    def setOutputEnable(self):
         return

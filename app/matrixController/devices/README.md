@@ -46,13 +46,17 @@ bit pattern:     |  000, 001, 010, 011, 100, 101, 111
 section number:  |  0    1    2    3    4    5    6
 ```
 
+Next, we bring the `LAT` pin and the `OE` pin low to prepare the matrix's
+shift register to receive RGB data.
+
 Then, we write 3 of color data to the `R1`, `G1`, and `B1` pins to color
 a pixel on the top half. Then we write 3 bits to `R2`, `G2`, and `B2` to
 color the bottom half's pixel. Then, we write to the `CLK` pin
 to move to the next column.
 
 After we have written all data for this section, we write to the `LAT` pin
-to make the matrix display the data we just wrote to the section.
+to make the matrix display the data we just wrote to the current section.
+We also need to pull the `OE` (output enable) pin back high.
 
 We can repeat the process while incrementing the section address to 
 draw a whole frame.
