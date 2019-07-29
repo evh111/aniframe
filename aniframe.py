@@ -1,10 +1,8 @@
-from flask import Flask
-from flask import render_template
-from flask import request
+from flask import Flask, render_template, request
 from app.matrixController.controller import Controller
-
 from threading import Thread
 from loto import LockoutTagout
+import argparse
 
 
 if __name__ == '__main__':
@@ -36,10 +34,17 @@ if __name__ == '__main__':
         updateData(request.get_json(force=True))
         return '', 200
 
-    # How do we want to set this flag? Using argparse? Click?
-    controller = Controller(useVirtualMatrix=True)
-    controllerThread = Thread(target=launchController, args=(controller,))
-    controllerThread.daemon = True # kill thread if parent dies
-    controllerThread.start()
+    # argparse to make virtual matrix optional
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--virtual', help='Enable the virtual matrix', action='store_true')
+
+    args = parser.parse_args()
+    virtual = args.virtual
+    if virtual:
+        controller = Controller(useVirtualMatrix=True)
+        controllerThread = Thread(target=launchController, args=(controller,))
+        controllerThread.daemon = True # Kill thread if parent dies
+        controllerThread.start()
+        print('Enabled virtual matrix')
 
     flaskApp.run(host='0.0.0.0')
