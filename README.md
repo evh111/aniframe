@@ -12,7 +12,7 @@ To access on other browsers on the network
 To enable virtual matrix
 
 ```
-python aniframe.py -v, --virtual
+python aniframe.py -v
 ```
 
 If using the virtual terminal, press `q` to exit that view.
