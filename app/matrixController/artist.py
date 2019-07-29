@@ -64,10 +64,14 @@ class MatrixArtist:
 
         #  for some reason, flask has trouble starting up 
         # unless we block our thread here for a while
-        sleep(2)
+        sleep(1)
 
         try:
-            Thread(target=self.device.startRendering).start()
+            # start rendering a matrix like the virtual matrix
+            # if it supports this
+            t = Thread(target=self.device.startRendering)
+            t.daemon = True
+            t.start()
         except:
             pass
         

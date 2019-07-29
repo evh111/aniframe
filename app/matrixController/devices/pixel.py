@@ -1,5 +1,9 @@
 
-from asciimatics.screen import Screen
+RED =   0b100
+GREEN = 0b010
+BLUE =  0b001
+BLACK = 0b000
+WHITE = 0b111
 
 class Pixel:
     """
@@ -14,6 +18,15 @@ class Pixel:
         self.g = g
         self.b = b
 
+
+    def asTuple(self):
+        return (self.r, self.g, self.b)
+
+    
+    def asRGBBytes(self):
+        return (self.r * 0xff, self.g * 0xff, self.b * 0xff)
+
+        
     @classmethod
     def fromBinary(cls, value):
         """
@@ -22,35 +35,10 @@ class Pixel:
         
         Use this as Pixel.fromBinary(value)
         """
-        r = (value & 0b100) >> 2
-        g = (value & 0b010) >> 1
-        b = (value & 0b001) >> 0
+        r = bool(value & RED)
+        g = bool(value & GREEN)
+        b = bool(value & BLUE)
         return cls(r, g, b)
-
-
-    def _getAsciimaticsColorRaw(self):
-        # we can use some bitmasking. See asciimatics.Screen colours
-        color =  (
-            Screen.COLOUR_RED * self.r   |
-            Screen.COLOUR_GREEN * self.g |
-            Screen.COLOUR_BLUE * self.b  
-        )
-        return color
-
-
-    def getAsciimaticsColor(self):
-        # To draw "black" pixels on the black background,
-        # we draw white characters but use a diffferent symbol.
-        # See getAsciimaticsChar()
-        color = self._getAsciimaticsColorRaw()
-        if color == Screen.COLOUR_BLACK:
-            color = Screen.COLOUR_WHITE
-        return color
-
-    def getAsciimaticsChar(self):
-        if self._getAsciimaticsColorRaw() == Screen.COLOUR_BLACK:
-            return '- '
-        return '¤ '
 
 
     def __repr__(self):

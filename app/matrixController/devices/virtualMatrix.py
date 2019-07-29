@@ -1,12 +1,11 @@
 
 import numpy as np
+import pygame
+import os
 
 from app.matrixController.devices.matrixDevice import MatrixDevice
 from app.matrixController.devices.pixel import Pixel
 from app import matrixDataTag
-from asciimatics.screen import Screen
-from asciimatics.screen import ManagedScreen
-from asciimatics.event import KeyboardEvent
 from time import sleep
 
 class VirtualMatrix(MatrixDevice):
@@ -14,18 +13,14 @@ class VirtualMatrix(MatrixDevice):
     def __init__(self, _M, _N):
         super().__init__(_M, _N)
         self.currentColumn = 0
-
-        # asciimatics requires we draw the whole screen every frame
-        # The real physical matrix device may just use
-        # one or two rows at a time instead of the whole screen
-        self.currentScreen = np.full((self.M, self.N), Pixel(0, 0, 0))
+        self.currentPixels = np.full((_M, _N), Pixel(0, 0, 0))
 
 
     def writeTopPixel(self, pixel):
-        self.currentScreen[self.currentSection][self.currentColumn] = pixel
+        self.currentPixels[self.currentSection][self.currentColumn] = pixel
 
     def writeBottomPixel(self, pixel):
-        self.currentScreen[self.currentSection + self.M // 2][self.currentColumn] = pixel
+        self.currentPixels[self.currentSection + self.M // 2][self.currentColumn] = pixel
 
     def clock(self):
         self.currentColumn += 1
@@ -50,34 +45,45 @@ class VirtualMatrix(MatrixDevice):
         return 
         
 
-    @ManagedScreen
-    def startRendering(self, screen=None):
+    def startRendering(self):
         """
         Paint the virtual matrix.
-        This returns and stops the painting loop if any input
-        event is detected.
         """
-
-        screenWidth, screenHeight = screen.dimensions
-        numSections = self.M / 2
+        # set up stuff for drawing the virtual matrix
+        pygame.init()
+        LEDRadius = 10
+        LEDSpacing = 3
+        size = (width, height) = ( 
+            self.N * (2 * LEDRadius + LEDSpacing) - LEDSpacing,
+            self.M * (2 * LEDRadius + LEDSpacing) - LEDSpacing
+        )
+        self.screen = pygame.display.set_mode(size)
         while True:
-            screen.refresh()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT: os._exit(0)
 
-            ev = screen.get_event()
-            if isinstance(ev, KeyboardEvent):
-                if ev.key_code is ord('q'):
-                    return
             for i in range(0, self.M):
                 for j in range(0, self.N):
-                    # accessing array in row-major but asciimatics
+                    # accessing array in row-major but pygame
                     # takes (x,y) coords
-                    # Mind the british spelling :)
-                    pixel = self.currentScreen[i][j]
-                    pixelString = pixel.getAsciimaticsChar()
-                    screen.print_at(
-                            pixel.getAsciimaticsChar(),
-                            j * len(pixelString),
-                            i,
-                            colour=pixel.getAsciimaticsColor(),
-                            attr=Screen.A_BOLD
-                        )
+                    pix = self.currentPixels[i][j]
+                    color = pix.asRGBBytes()
+                    
+                    if color == (0, 0, 0):
+                        # use gray on virtual matrix instead of true black
+                        color = (20, 20, 20) 
+
+                    pixCenter = (
+                        j * (2 * LEDRadius + LEDSpacing) + LEDRadius,
+                        i * (2 * LEDRadius + LEDSpacing) + LEDRadius
+                    )
+
+                    pygame.draw.circle(
+                        self.screen,
+                        color,
+                        pixCenter,
+                        LEDRadius,
+                        0  # filled circle
+                    )
+
+            pygame.display.flip()

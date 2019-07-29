@@ -1,6 +1,5 @@
 
 import pytest
-import asciimatics
 from app.matrixController.devices.virtualMatrix import VirtualMatrix
 
 # TODO unit tests for matrix device interface
