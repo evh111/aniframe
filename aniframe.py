@@ -46,5 +46,7 @@ if __name__ == '__main__':
         controllerThread.daemon = True # Kill thread if parent dies
         controllerThread.start()
         print('Enabled virtual matrix')
+    else:
+        controller = Controller(useVirtualMatrix=False)
 
     flaskApp.run(host='0.0.0.0')
