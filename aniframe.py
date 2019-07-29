@@ -41,6 +41,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     virtual = args.virtual
     if virtual:
+        # REMINDER: Change 'True' to 'args.virtual'
         controller = Controller(useVirtualMatrix=True)
         controllerThread = Thread(target=launchController, args=(controller,))
         controllerThread.daemon = True # Kill thread if parent dies
