@@ -1,4 +1,3 @@
-
 from asciimatics.screen import Screen
 
 class Pixel:
@@ -29,7 +28,7 @@ class Pixel:
 
 
     def _getAsciimaticsColorRaw(self):
-        # we can use some bitmasking. See asciimatics.Screen colours
+        # We can use some bitmasking. See asciimatics.Screen colours
         color =  (
             Screen.COLOUR_RED * self.r   |
             Screen.COLOUR_GREEN * self.g |

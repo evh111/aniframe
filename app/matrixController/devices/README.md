@@ -3,7 +3,7 @@
 The classes in this directory represent various matrix devices
 as well as helper classes such as `Pixels`.
 
-`MatrixDevices` can be the real physical matrix device, or they can be 
+`MatrixDevices` can be the real physical matrix device, or they can be
 the virtual matrix device used for debugging. You can also implement your
 own. The interface is compliant with the description
 of the
@@ -12,9 +12,10 @@ of the
 ## Overview
 
 A matrix device consists of many pixels that we write 3 bits of data to.
-The device is broken down into sections; the first section is the first 
-row form the top and the first row from the center.
+The device is broken down into sections; the first section is the first
+row from the top and the first row from the center.
 For example, the first section of a 16x32 matrix would be the starred portion here:
+
 ```
 ********************************
 --------------------------------
@@ -41,6 +42,7 @@ etc...
 The matrix expects a controller to
 write 3 bits to the **A**, **B**, and **C** pins in order to
 select a section to write to.
+
 ```
 bit pattern:     |  000, 001, 010, 011, 100, 101, 111
 section number:  |  0    1    2    3    4    5    6
@@ -54,13 +56,14 @@ to move to the next column.
 After we have written all data for this section, we write to the `LAT` pin
 to make the matrix display the data we just wrote to the section.
 
-We can repeat the process while incrementing the section address to 
+We can repeat the process while incrementing the section address to
 draw a whole frame.
 
 ## Interface
 
 Matrix devices will all support the following API
 by inheriting from the `MatrixDevice` abstract base class:
+
 ```
 selectSection(section)
 writeTopPixel(pixel)

@@ -1,4 +1,3 @@
-
 import abc
 
 from app.matrixController.devices.pixel import Pixel
@@ -17,7 +16,7 @@ class MatrixDevice(metaclass=abc.ABCMeta):
         self.M = _M
         self.N = _N
 
-    # probably doesn't need to be abstract
+    # Probably doesn't need to be abstract
     def selectSection(self, section):
         self.currentSection = section
 

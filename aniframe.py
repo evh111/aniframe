@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
-from app.matrixController.controller import Controller
-from threading import Thread
-from loto import LockoutTagout
 import argparse
+from threading import Thread
+from flask import Flask, render_template, request
+
+from app.matrixController.controller import Controller
+from loto import LockoutTagout
 
 
 if __name__ == '__main__':

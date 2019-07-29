@@ -1,4 +1,3 @@
-
 import pytest
 import asciimatics
 from app.matrixController.devices.virtualMatrix import VirtualMatrix

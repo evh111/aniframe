@@ -1,4 +1,3 @@
-
 import pytest
 from asciimatics.screen import Screen
 from app.matrixController.devices.pixel import Pixel

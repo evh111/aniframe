@@ -1,4 +1,3 @@
-
-# tag for locking the matrix data when it needs 
-# read/writes from different threads
+# Tag for locking the matrix data when it needs 
+# reads/writes from different threads
 matrixDataTag = 'matrixData'
