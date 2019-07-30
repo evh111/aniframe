@@ -1,4 +1,3 @@
-
 import pytest
 from app.matrixController.devices.virtualMatrix import VirtualMatrix
 

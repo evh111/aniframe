@@ -5,6 +5,7 @@ BLUE =  0b001
 BLACK = 0b000
 WHITE = 0b111
 
+
 class Pixel:
     """
     Pixels are simple containers for three booleans:

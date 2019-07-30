@@ -1,4 +1,3 @@
-
 import json
 import numpy as np
 from time import sleep
@@ -14,7 +13,7 @@ from threading import Thread
 converter = np.vectorize(lambda pix: Pixel.fromBinary(int(pix)))
 
 class MatrixArtist:
-    """Handle interpreting animation data and interfacing
+    """Handles interpreting animation data and interfacing
     with a matrix device.
 
     This class consumes json data that represents the frames
@@ -45,7 +44,7 @@ class MatrixArtist:
 
 
     def updateData(self, data):
-        # the data is already passed to as as a python dict
+        # the data is already passed to it as a python dict
         # extract frame data from the json 
         # that the server gave us
         self.frameData = converter(data['frames'])

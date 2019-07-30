@@ -1,4 +1,3 @@
-
 import gpiozero
 
 from app.matrixController.devices.matrixDevice import MatrixDevice
