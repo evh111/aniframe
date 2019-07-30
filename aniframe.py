@@ -1,3 +1,5 @@
+
+from app import matrixDataTag
 import argparse
 from threading import Thread
 from flask import Flask, render_template, request
@@ -20,7 +22,7 @@ if __name__ == '__main__':
     def launchController(controller):
         controller.begin()
 
-    @LockoutTagout('matrixData')
+    @LockoutTagout(matrixDataTag)
     def updateData(data):
         controller.updateData(data)
 

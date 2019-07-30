@@ -4,6 +4,7 @@ from time import sleep
 from loto import LockoutTagout
 from app import matrixDataTag
 from app.matrixController.devices.pixel import Pixel
+from app.matrixController.repeater import Repeater
 from threading import Thread
 
 # Converter function for a json 3D array of 
@@ -32,6 +33,15 @@ class MatrixArtist:
         self.rowOffset = self.device.M // 2
         self.numSections = self.device.M // 2
 
+        # Make a Repeater to make a callback every so often.
+        # period = 1 / frequency
+        self.frameTimer = Repeater(1.0 / self.frameRate, self.triggerNextFrame)
+
+
+    def triggerNextFrame(self):
+        self.currentFrameIndex += 1
+        self.currentFrameIndex %= len(self.frameData)
+
 
     def updateData(self, data):
         # the data is already passed to it as a python dict
@@ -51,15 +61,21 @@ class MatrixArtist:
         and latching.
         """
 
+        #  for some reason, flask has trouble starting up 
+        # unless we block our thread here for a while
+        sleep(1)
+
         try:
-            Thread(target=self.device.startRendering).start()
+            # start rendering a matrix like the virtual matrix
+            # if it supports this
+            t = Thread(target=self.device.startRendering)
+            t.daemon = True
+            t.start()
         except:
             pass
         
         while True:
             self.paintFrame()
-            # perod is reciprocal of frequency
-            sleep(1.0 / self.frameRate)
 
 
     @LockoutTagout(matrixDataTag)
@@ -71,13 +87,17 @@ class MatrixArtist:
         data, lockout-tagout the other code with the
         same tag.
         """
-        
+
         # we're using 3D numpy arrays; essentially an array
         # of frames. So, we access pixel data as
         # frameData[frame][row][column]
         frame = self.frameData[self.currentFrameIndex]
         for section in range(0, self.numSections):
             self.device.selectSection(section)
+            # make sure that we select the new section on the matrix
+            # BEFORE we bring the latch and OE back low
+            self.device.setLatch(0)
+            self.device.setOutputEnable(0)
             topRow = frame[section]
             bottomRow = frame[section + self.rowOffset]
             for column in range(0, self.device.N):
@@ -88,8 +108,5 @@ class MatrixArtist:
                 self.device.clock()
 
             # latch the rows once we wrote to every column
-            self.device.latch()
-
-        self.currentFrameIndex += 1
-        # possibly wrap frame index back around to beginning frame
-        self.currentFrameIndex %= len(self.frameData)
+            self.device.setLatch(1)
+            self.device.setOutputEnable(1)

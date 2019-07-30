@@ -2,7 +2,7 @@ Flask==1.0.2
 python-dotenv==0.9.1
 pytest
 numpy
-asciimatics
+pygame
 loto # Lockout Tagout module
 
 # The GPIO ;ibrary should still be isntallable on most platforms
