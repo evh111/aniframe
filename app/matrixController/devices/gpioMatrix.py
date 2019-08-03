@@ -6,9 +6,6 @@ class GpioMatrix(MatrixDevice):
 
     def __init__(self, _M, _N):
         super().__init__(_M, _N)
-
-    def selectSection(self, section):
-        return
         
 
     def writeTopPixel(self, pixel):
