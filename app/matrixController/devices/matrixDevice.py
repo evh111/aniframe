@@ -16,7 +16,7 @@ class MatrixDevice(metaclass=abc.ABCMeta):
         self.M = _M
         self.N = _N
 
-    # Probably doesn't need to be abstract
+    @abc.abstractmethod
     def selectSection(self, section):
         self.currentSection = section
 

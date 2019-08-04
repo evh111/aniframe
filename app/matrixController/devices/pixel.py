@@ -1,4 +1,3 @@
-
 RED =   0b100
 GREEN = 0b010
 BLUE =  0b001
