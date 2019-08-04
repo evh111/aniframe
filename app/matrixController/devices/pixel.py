@@ -43,7 +43,7 @@ class Pixel:
 
 
     def __repr__(self):
-        return str((self.r, self.g, self.b))
+        return f"({int(self.r)}{int(self.g)}{int(self.b)})"
 
     def __eq__(self, other):
         return (self.r, self.g, self.b) == (other.r, other.g, other.b)
