@@ -9,7 +9,6 @@ class GpioMatrix(MatrixDevice):
     def __init__(self, _M, _N):
         super().__init__(_M, _N)
         self.currentColumn = 0
-        self.currentPixels = np.full((_M, _N), Pixel(0, 0, 0))
 
         # Set matrix pins to 'OutputDevice' (pins used on pi)
         self.GND = OutputDevice(6)
@@ -26,29 +25,30 @@ class GpioMatrix(MatrixDevice):
         self.CLK = OutputDevice(5)
         self.LAT = OutputDevice(7)
 
-    def preparePin(self, section):
-        self.A.value = bool(section & 0b100)
-        self.B.value = bool(section & 0b010)
-        self.C.value = bool(section & 0b001)
-
 
     def selectSection(self, section):
-        return
+        self.A.value = bool(section & 0b001)
+        self.B.value = bool(section & 0b010)
+        self.C.value = bool(section & 0b100)
 
 
     def writeTopPixel(self, pixel):
-        self.currentPixels[self.currentSection][self.currentColumn] = pixel
+        self.R1.value = pixel.r
+        self.G1.value = pixel.g
+        self.B1.value = pixel.b
 
 
     def writeBottomPixel(self, pixel):
-        self.currentPixels[self.currentSection + self.M // 2][self.currentColumn] = pixel
-
+        self.R2.value = pixel.r
+        self.G2.value = pixel.g
+        self.B2.value = pixel.b
 
     def clock(self):
         self.CLK.on()
+        self.CLK.off()
 
 
-    def latch(self):
+    def setLatch(self):
         self.LAT.on()
 
 
