@@ -1,6 +1,7 @@
 import pytest
 from app.matrixController.devices.pixel import *
 
+
 def test_pixel_colors():
     cyanPixel = Pixel(0, 1, 1)
     assert cyanPixel.asRGBBytes() == (0x00, 0xff, 0xff)

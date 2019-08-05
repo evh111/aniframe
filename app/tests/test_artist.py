@@ -12,11 +12,12 @@ ONE_FRAME_RED_4x4 = json.loads("""
             [4,4,4,4],
             [4,4,4,4],
             [4,4,4,4],
-            [4,4,4,4]
+            [4,4,4,4] 
         ]
     ]
 }
 """)
+
 
 def test_artist_parse_one_frame():
     mockDevice = Mock()
@@ -27,8 +28,9 @@ def test_artist_parse_one_frame():
     assert artist.numSections == 2
     assert np.array_equal(
         artist.frameData,
-        np.full((1,4,4), Pixel.fromBinary(0b100))
-        )
+        np.full((1, 4, 4), Pixel.fromBinary(0b100))
+    )
+
 
 TWO_FRAMES_RED_BLUE_2x2 = json.loads("""
 {
@@ -45,6 +47,7 @@ TWO_FRAMES_RED_BLUE_2x2 = json.loads("""
 }
 """)
 
+
 def test_matrix_artist_parse_two_frames():
     mockDevice = Mock()
     mockDevice.M = 2
@@ -54,8 +57,8 @@ def test_matrix_artist_parse_two_frames():
     assert artist.numSections == 1
     expected = np.concatenate(
         (
-            np.full((1,2,2), Pixel.fromBinary(0b100)),
-            np.full((1,2,2), Pixel.fromBinary(0b001))
+            np.full((1, 2, 2), Pixel.fromBinary(0b100)),
+            np.full((1, 2, 2), Pixel.fromBinary(0b001))
         ),
         0
     )

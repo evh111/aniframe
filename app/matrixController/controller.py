@@ -2,6 +2,7 @@ from app.matrixController.devices.gpioMatrix import GpioMatrix
 from app.matrixController.devices.virtualMatrix import VirtualMatrix
 from app.matrixController.artist import MatrixArtist
 
+
 class Controller:
     """Manages a matrix device to control using the web 
     API endpoints.
@@ -19,7 +20,6 @@ class Controller:
             self.device = GpioMatrix(16, 32)
 
         self.artist = MatrixArtist(self.device)
-
 
     def updateData(self, data):
         """

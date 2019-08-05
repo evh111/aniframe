@@ -2,6 +2,7 @@ import abc
 
 from app.matrixController.devices.pixel import Pixel
 
+
 class MatrixDevice(metaclass=abc.ABCMeta):
     """
     Abstract base class for a matrix device.
@@ -10,37 +11,31 @@ class MatrixDevice(metaclass=abc.ABCMeta):
     M is the number of rows and N is the number
     of columns.
     """
-    
+
     @abc.abstractmethod
     def __init__(self, _M, _N):
         self.M = _M
         self.N = _N
 
-
     @abc.abstractmethod
     def selectSection(self, section):
         self.currentSection = section
-
 
     @abc.abstractmethod
     def writeTopPixel(self, pixel):
         return
 
-
     @abc.abstractmethod
     def writeBottomPixel(self, pixel):
         return
-    
 
     @abc.abstractmethod
     def clock(self):
         return
 
-
     @abc.abstractmethod
     def setLatch(self):
         return
-
 
     @abc.abstractmethod
     def setOutputEnable(self):

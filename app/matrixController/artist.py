@@ -7,10 +7,11 @@ from app.matrixController.devices.pixel import Pixel
 from app.matrixController.repeater import Repeater
 from threading import Thread
 
-# Converter function for a json 3D array of 
+# Converter function for a json 3D array of
 # color values (not rgb tuples)
 # Conversion is easy with numpy magic!
 converter = np.vectorize(lambda pix: Pixel.fromBinary(int(pix)))
+
 
 class MatrixArtist:
     """Handles interpreting animation data and interfacing
@@ -28,7 +29,7 @@ class MatrixArtist:
         self.frameData = np.full(
             (1, self.device.M, self.device.N),
             Pixel.fromBinary(0b000)
-            )
+        )
         self.currentFrameIndex = 0
         self.rowOffset = self.device.M // 2
         self.numSections = self.device.M // 2
@@ -37,20 +38,16 @@ class MatrixArtist:
         # period = 1 / frequency
         self.frameTimer = Repeater(1.0 / self.frameRate, self.triggerNextFrame)
 
-
     def triggerNextFrame(self):
         self.currentFrameIndex += 1
         self.currentFrameIndex %= len(self.frameData)
 
-
     def updateData(self, data):
         # the data is already passed to it as a python dict
-        # extract frame data from the json 
+        # extract frame data from the json
         # that the server gave us
         self.frameData = converter(data['frames'])
         self.currentFrameIndex = 0
-        
-
 
     def startPainting(self):
         """Tells an artist that it should start
@@ -61,7 +58,7 @@ class MatrixArtist:
         and latching.
         """
 
-        #  for some reason, flask has trouble starting up 
+        #  for some reason, flask has trouble starting up
         # unless we block our thread here for a while
         sleep(1)
 
@@ -73,10 +70,9 @@ class MatrixArtist:
             t.start()
         except:
             pass
-        
+
         while True:
             self.paintFrame()
-
 
     @LockoutTagout(matrixDataTag)
     def paintFrame(self):

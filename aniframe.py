@@ -1,4 +1,3 @@
-
 from app import matrixDataTag
 import argparse
 from threading import Thread
@@ -9,7 +8,7 @@ from loto import LockoutTagout
 
 
 if __name__ == '__main__':
-    # The general idea is to set up flask's routes while 
+    # The general idea is to set up flask's routes while
     # giving them access to the controller object.
     # Then, we start a thread for the controller
     # to run its loop independently of the flask thread.
@@ -26,11 +25,9 @@ if __name__ == '__main__':
     def updateData(data):
         controller.updateData(data)
 
-
     @flaskApp.route('/')
     def index():
         return render_template('index.html')
-
 
     @flaskApp.route('/animation', methods=['POST'])
     def animation():
@@ -39,7 +36,8 @@ if __name__ == '__main__':
 
     # argparse to make virtual matrix optional
     parser = argparse.ArgumentParser()
-    parser.add_argument('-v', '--virtual', help='Enable the virtual matrix', action='store_true')
+    parser.add_argument('-v', '--virtual',
+                        help='Enable the virtual matrix', action='store_true')
 
     args = parser.parse_args()
     virtual = args.virtual
@@ -47,7 +45,7 @@ if __name__ == '__main__':
         # REMINDER: Change 'True' to 'args.virtual'
         controller = Controller(useVirtualMatrix=True)
         controllerThread = Thread(target=launchController, args=(controller,))
-        controllerThread.daemon = True # Kill thread if parent dies
+        controllerThread.daemon = True  # Kill thread if parent dies
         controllerThread.start()
         print('Enabled virtual matrix')
     else:

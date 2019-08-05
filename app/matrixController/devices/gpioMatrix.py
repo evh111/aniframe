@@ -25,33 +25,27 @@ class GpioMatrix(MatrixDevice):
         self.CLK = OutputDevice(5)
         self.LAT = OutputDevice(7)
 
-
     def selectSection(self, section):
         self.A.value = bool(section & 0b001)
         self.B.value = bool(section & 0b010)
         self.C.value = bool(section & 0b100)
-
 
     def writeTopPixel(self, pixel):
         self.R1.value = pixel.r
         self.G1.value = pixel.g
         self.B1.value = pixel.b
 
-
     def writeBottomPixel(self, pixel):
         self.R2.value = pixel.r
         self.G2.value = pixel.g
         self.B2.value = pixel.b
 
-
     def clock(self):
         self.CLK.on()
         self.CLK.off()
 
-
     def setLatch(self, arg):
         self.LAT.value = arg
-
 
     def setOutputEnable(self, arg):
         self.OE.value = arg

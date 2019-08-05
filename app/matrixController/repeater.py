@@ -1,5 +1,6 @@
 from threading import Timer
 
+
 class Repeater:
     """
     Simple wrapper around a timer that keeps
@@ -15,7 +16,7 @@ class Repeater:
         # the actual timer calls THIS method again,
         # instead of the wrapped function.
         self.timer = Timer(self.interval, self.start)
-        # But then this method just calls the wrapped 
+        # But then this method just calls the wrapped
         # function
         self.func()
         self.timer.start()
