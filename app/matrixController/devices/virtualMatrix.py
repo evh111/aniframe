@@ -10,20 +10,29 @@ from time import sleep
 
 class VirtualMatrix(MatrixDevice):
 
+
     def __init__(self, _M, _N):
         super().__init__(_M, _N)
         self.currentColumn = 0
         self.currentPixels = np.full((_M, _N), Pixel(0, 0, 0))
 
+    
+    # This method only seems necessary in the 'gpioMatrix' class
+    def selectSection(self, section):
+        return
+
 
     def writeTopPixel(self, pixel):
         self.currentPixels[self.currentSection][self.currentColumn] = pixel
 
+
     def writeBottomPixel(self, pixel):
         self.currentPixels[self.currentSection + self.M // 2][self.currentColumn] = pixel
 
+
     def clock(self):
         self.currentColumn += 1
+
 
     def setLatch(self, state):
         """Set latch line high or low (1 or 0)"""
@@ -40,8 +49,9 @@ class VirtualMatrix(MatrixDevice):
         # whether they're toggled. They should be brought low AFTER
         # we select the address for the next section
 
+
     def setOutputEnable(self, state):
-        # this is something only the physical device will do
+        # This is something only the physical device will do
         return 
         
 
@@ -49,7 +59,7 @@ class VirtualMatrix(MatrixDevice):
         """
         Paint the virtual matrix.
         """
-        # set up stuff for drawing the virtual matrix
+        # Set up stuff for drawing the virtual matrix
         pygame.init()
         LEDRadius = 10
         LEDSpacing = 3
@@ -57,20 +67,20 @@ class VirtualMatrix(MatrixDevice):
             self.N * (2 * LEDRadius + LEDSpacing) - LEDSpacing,
             self.M * (2 * LEDRadius + LEDSpacing) - LEDSpacing
         )
-        self.screen = pygame.display.set_mode(size)
+        self.screen = pygame.display.set_mode(size)B
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: os._exit(0)
 
             for i in range(0, self.M):
                 for j in range(0, self.N):
-                    # accessing array in row-major but pygame
+                    # Accessing array in row-major but pygame
                     # takes (x,y) coords
                     pix = self.currentPixels[i][j]
                     color = pix.asRGBBytes()
                     
                     if color == (0, 0, 0):
-                        # use gray on virtual matrix instead of true black
+                        # Use gray on virtual matrix instead of true black
                         color = (20, 20, 20) 
 
                     pixCenter = (
@@ -83,7 +93,7 @@ class VirtualMatrix(MatrixDevice):
                         color,
                         pixCenter,
                         LEDRadius,
-                        0  # filled circle
+                        0  # Filled circle
                     )
 
             pygame.display.flip()

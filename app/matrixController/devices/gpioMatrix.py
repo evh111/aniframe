@@ -43,13 +43,14 @@ class GpioMatrix(MatrixDevice):
         self.G2.value = pixel.g
         self.B2.value = pixel.b
 
+
     def clock(self):
         self.CLK.on()
         self.CLK.off()
 
 
-    def setLatch(self):
-        self.LAT.on()
+    def setLatch(self, arg):
+        self.LAT.value = arg
 
 
     def setOutputEnable(self):

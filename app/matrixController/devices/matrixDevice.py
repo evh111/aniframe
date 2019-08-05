@@ -16,25 +16,31 @@ class MatrixDevice(metaclass=abc.ABCMeta):
         self.M = _M
         self.N = _N
 
-    # Change to abstract method
+
+    @abc.abstractmethod
     def selectSection(self, section):
         self.currentSection = section
+
 
     @abc.abstractmethod
     def writeTopPixel(self, pixel):
         return
 
+
     @abc.abstractmethod
     def writeBottomPixel(self, pixel):
         return
     
+
     @abc.abstractmethod
     def clock(self):
         return
 
+
     @abc.abstractmethod
     def setLatch(self):
         return
+
 
     @abc.abstractmethod
     def setOutputEnable(self):
