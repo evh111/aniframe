@@ -9,3 +9,4 @@ loto # Lockout Tagout module
 # but we just can't use real pin factories unless we're
 # on a pi
 gpiozero
+RPi.GPIO
