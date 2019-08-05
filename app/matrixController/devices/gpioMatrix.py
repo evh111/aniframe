@@ -53,5 +53,5 @@ class GpioMatrix(MatrixDevice):
         self.LAT.value = arg
 
 
-    def setOutputEnable(self):
-        return
+    def setOutputEnable(self, arg):
+        self.OE.value = arg
