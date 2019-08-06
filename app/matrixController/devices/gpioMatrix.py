@@ -25,6 +25,8 @@ class GpioMatrix(MatrixDevice):
         self.LAT = OutputDevice(4)
 
     def selectSection(self, section):
+        # Quick hack for strange functionality
+        section = (section + 7) % (self.M // 2)
         self.A.value = bool(section & 0b001)
         self.B.value = bool(section & 0b010)
         self.C.value = bool(section & 0b100)
