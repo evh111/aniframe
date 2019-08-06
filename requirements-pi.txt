@@ -3,9 +3,11 @@ python-dotenv==0.9.1
 pytest
 numpy
 pygame
-loto # Lockout Tagout module
 
-# The GPIO ;ibrary should still be isntallable on most platforms
+# Lockout Tagout module
+loto
+
+# The GPIO library should still be installable on most platforms
 # but we just can't use real pin factories unless we're
 # on a pi
 gpiozero
