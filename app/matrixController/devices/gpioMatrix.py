@@ -12,12 +12,12 @@ class GpioMatrix(MatrixDevice):
 
         # Set matrix pins to 'OutputDevice'
         # Pins swapped so we can hold matrix upside 
-        self.R1 = OutputDevice(23)
-        self.G1 = OutputDevice(24)
-        self.B1 = OutputDevice(25)
-        self.R2 = OutputDevice(17)
-        self.G2 = OutputDevice(18)
-        self.B2 = OutputDevice(22)
+        self.R1 = OutputDevice(17)
+        self.G1 = OutputDevice(18)
+        self.B1 = OutputDevice(22)
+        self.R2 = OutputDevice(23)
+        self.G2 = OutputDevice(24)
+        self.B2 = OutputDevice(25)
         self.A = OutputDevice(7)
         self.B = OutputDevice(8)
         self.C = OutputDevice(9)
