@@ -2,17 +2,13 @@ let canvas = document.getElementById('pixel_canvas');
 let sizePicker = document.getElementById('sizePicker');
 let color = document.getElementById('palette');
 
-// All of the frame selectors
-let frameOne = document.getElementById('frameOne');
-let frameTwo = document.getElementById('frameTwo');
-let frameThree = document.getElementById('frameThree');
-let frameFour = document.getElementById('frameFour');
-let frameFive = document.getElementById('frameFive');
-let frameSix = document.getElementById('frameSix');
-let frameSeven = document.getElementById('frameSeven');
-let frameEight = document.getElementById('frameEight');
-let frameNine = document.getElementById('frameNine');
-let frameTen = document.getElementById('frameTen');
+// Sets default 'pen' to white
+var penColor = '#ffffff';
+
+// Sets the selected color as a 'pen'
+function setPenColor(pen) {
+  penColor = pen;
+}
 
 let colormap = {
   '#000000': 0b000,
@@ -25,31 +21,10 @@ let colormap = {
   '#ffffff': 0b111
 };
 
-var frameArray = [];
-
-frameArray[0] = frameOne;
-frameArray[1] = frameTwo;
-frameArray[2] = frameThree;
-frameArray[3] = frameFour;
-frameArray[4] = frameFive;
-frameArray[5] = frameSix;
-frameArray[6] = frameSeven;
-frameArray[7] = frameEight;
-frameArray[8] = frameNine;
-frameArray[9] = frameTen;
+color.addEventListener('click', function() {});
 
 // Create the grid (16x32)
 makeGrid();
-
-color.addEventListener('click', function() {});
-
-// Sets default 'pen' to white
-var penColor = '#ffffff';
-
-// Sets the selected color as a 'pen'
-function setPenColor(pen) {
-  penColor = pen;
-}
 
 // Function to create grid (16x32)
 function makeGrid() {
@@ -77,6 +52,17 @@ function fillSquare() {
   }
 }
 
+// Clears grid of all colored cells
+function clearGrid() {
+  document.location.reload(true);
+}
+
+// Get the current frame index
+function getIndex(frame) {
+  var frameIndex = frame.getAttribute('data-value');
+  console.log(frameIndex);
+}
+
 function getFrameAsJSON() {
   // Make an object that contains an array of frames
   let animation = {
@@ -89,10 +75,13 @@ function getFrameAsJSON() {
   M = canvas.rows.length;
   N = canvas.rows[0].cells.length;
   // Loops over each cell and adds an attribute to the first frame
+  // REMINDER: Needs to handle mutiple frames
+  // SUGGESTION: Have an index that they (the user?) controls from the UI
   for (let i = 0; i < M; i++) {
     let row = [];
     for (let j = 0; j < N; j++) {
       cell = canvas.rows[i].cells[j];
+      // REMINDER: Modify to restrict this to our pallette
       row.push(cell.getAttribute('controller-color'));
       //animation.frames[0].push(cell.getAttribute('controller-color'));
     }

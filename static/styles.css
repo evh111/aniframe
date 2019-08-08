@@ -37,6 +37,12 @@ tr {
   height: 35px;
 }
 
+.table-style:hover {
+  color: #000000;
+  background-color: #00ff00;
+  cursor: default;
+}
+
 td {
   width: 35px;
 }
