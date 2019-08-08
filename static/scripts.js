@@ -77,11 +77,6 @@ function fillSquare() {
   }
 }
 
-// Clears grid of all colored cells
-function clearGrid() {
-  document.location.reload(true);
-}
-
 function getFrameAsJSON() {
   // Make an object that contains an array of frames
   let animation = {

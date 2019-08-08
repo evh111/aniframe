@@ -26,7 +26,7 @@
           <table>
             <tr>
               <div id='frameOne'>
-                  <td>1</td>
+                <td>1</td>
               </div>
               <div id='frameTwo'>
                 <td>2</td>
@@ -101,7 +101,7 @@
           onclick="setPenColor('#ffff00')"
         ></div>
     </div>
-    <button class='button' onclick='clearGrid()'>Clear Grid</button>
+    <button class='button' onclick='location.reload()'>Clear Grid</button>
     <button class='button' onclick='getFrameAsJSON()'>Save Frame</button>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script async src="{{ url_for('static', filename='scripts.js') }}"></script>
