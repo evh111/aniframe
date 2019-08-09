@@ -2,6 +2,13 @@ let canvas = document.getElementById('pixel_canvas');
 let sizePicker = document.getElementById('sizePicker');
 let color = document.getElementById('palette');
 
+var frameIndex = '0';
+
+// Set current frame index
+function getIndex(frame) {
+  frameIndex = frame.getAttribute('data-value');
+}
+
 // Sets default 'pen' to white
 var penColor = '#ffffff';
 
@@ -57,12 +64,6 @@ function fillSquare() {
 // Clears grid of all colored cells
 function clearGrid() {
   document.location.reload(true);
-}
-
-// Get the current frame index
-function getIndex(frame) {
-  var frameIndex = frame.getAttribute('data-value');
-  console.log(frameIndex);
 }
 
 function getFrameAsJSON() {
