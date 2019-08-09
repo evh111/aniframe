@@ -37,6 +37,7 @@ class MatrixArtist:
         # Make a Repeater to make a callback every so often.
         # period = 1 / frequency
         self.frameTimer = Repeater(1.0 / self.frameRate, self.triggerNextFrame)
+        self.frameTimer.start()
 
     def triggerNextFrame(self):
         self.currentFrameIndex += 1

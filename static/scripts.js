@@ -29,6 +29,21 @@ let colormap = {
 };
 
 animation = { frames: [] };
+frame = [];
+
+M = canvas.rows.length;
+N = canvas.rows[0].cells.length;
+
+// Set the animation array to a series of 10 black frames
+for (let f = 0; frame < 10; f++) {
+  for (let i = 0; i < M; i++) {
+    for (let j = 0; j < N; j++) {
+      row.push(0);
+    }
+    frame.push(row);
+  }
+  animation.push(frame);
+}
 
 color.addEventListener('click', function() {});
 
@@ -75,8 +90,6 @@ function getFrameAsJSON() {
       ]
     ]
   };
-  M = canvas.rows.length;
-  N = canvas.rows[0].cells.length;
   // Loops over each cell and adds an attribute to the first frame
   // REMINDER: Needs to handle mutiple frames
   // SUGGESTION: Have an index that they (the user?) controls from the UI
@@ -95,8 +108,6 @@ function getFrameAsJSON() {
 }
 
 function saveCurrentFrame() {
-  M = canvas.row.length;
-  N = canvas.rows[0].cells.length;
   for (let i = 0; i < M; i++) {
     for (let j = 0; j < N; j++) {
       cell = canvas.rows[i].cells[j];
