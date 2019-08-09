@@ -94,7 +94,7 @@ function getFrameAsJSON() {
   $.post('/animation', JSON.stringify(animation, null, 4), null, 'json');
 }
 
-function saveCurrentFrame(frameIndex) {
+function saveCurrentFrame() {
   M = canvas.row.length;
   N = canvas.rows[0].cells.length;
   for (let i = 0; i < M; i++) {
