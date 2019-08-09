@@ -21,6 +21,8 @@ let colormap = {
   '#ffffff': 0b111
 };
 
+animation = { frames: [] };
+
 color.addEventListener('click', function() {});
 
 // Create the grid (16x32)
@@ -89,4 +91,18 @@ function getFrameAsJSON() {
   }
   console.log(JSON.stringify(animation));
   $.post('/animation', JSON.stringify(animation, null, 4), null, 'json');
+}
+
+function saveCurrentFrame(frameIndex) {
+  M = canvas.row.length;
+  N = canvas.rows[0].cells.length;
+  for (let i = 0; i < M; i++) {
+    for (let j = 0; j < N; j++) {
+      cell = canvas.rows[i].cells[j];
+      animation.frames[frameIndex][i][j] = cell.getAttribute(
+        'controller-color'
+      );
+    }
+  }
+  console.log(JSON.stringify(animation));
 }
