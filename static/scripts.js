@@ -2,21 +2,25 @@ let canvas = document.getElementById('pixel_canvas');
 let sizePicker = document.getElementById('sizePicker');
 let color = document.getElementById('palette');
 
+// Sets default index to 0
 var frameIndex = '0';
-
-// Set current frame index
-function getIndex(frame) {
-  frameIndex = frame.getAttribute('data-value');
-}
 
 // Sets default 'pen' to white
 var penColor = '#ffffff';
+
+// Get the current 'frameIndex'
+function setIndex(frame) {
+  var frameIndex = frame.getAttribute('data-value');
+  // DELETE
+  console.log(frameIndex);
+}
 
 // Sets the selected color as a 'pen'
 function setPenColor(pen) {
   penColor = pen;
 }
 
+// Supported color palette (does not handle PWM)
 let colormap = {
   '#000000': 0b000,
   '#0000ff': 0b001,
@@ -28,15 +32,16 @@ let colormap = {
   '#ffffff': 0b111
 };
 
+// Global animation array
 animation = { frames: [] };
-frame = [];
 
-M = canvas.rows.length;
-N = canvas.rows[0].cells.length;
-
-// Set the animation array to a series of 10 black frames
-for (let f = 0; frame < 10; f++) {
+// Set the 'animation' array to a series of 10 black frames
+for (let f = 0; f < 10; f++) {
+  let frame = [];
+  M = canvas.rows.length;
   for (let i = 0; i < M; i++) {
+    let row = [];
+    N = canvas.rows[0].cells.length;
     for (let j = 0; j < N; j++) {
       row.push(0);
     }
@@ -46,9 +51,6 @@ for (let f = 0; frame < 10; f++) {
 }
 
 color.addEventListener('click', function() {});
-
-// Create the grid (16x32)
-makeGrid();
 
 // Function to create grid (16x32)
 function makeGrid() {
@@ -64,6 +66,11 @@ function makeGrid() {
   }
 }
 
+// Creates the grid
+makeGrid();
+
+// Colors in selected cell with the value of penColor
+// then, maps the updated cell to the controller
 function fillSquare() {
   this.setAttribute('style', `background-color: ${penColor}`);
   // Maps colors as soon as they are set and embed the result in the element
@@ -76,7 +83,7 @@ function fillSquare() {
   }
 }
 
-// Clears grid of all colored cells
+// Clears grid of all colored cells (by reloading the page)
 function clearGrid() {
   document.location.reload(true);
 }
@@ -90,6 +97,8 @@ function getFrameAsJSON() {
       ]
     ]
   };
+  M = canvas.rows.length;
+  N = canvas.rows[0].cells.length;
   // Loops over each cell and adds an attribute to the first frame
   // REMINDER: Needs to handle mutiple frames
   // SUGGESTION: Have an index that they (the user?) controls from the UI
@@ -107,7 +116,7 @@ function getFrameAsJSON() {
   $.post('/animation', JSON.stringify(animation, null, 4), null, 'json');
 }
 
-function saveCurrentFrame() {
+function currentFrame() {
   for (let i = 0; i < M; i++) {
     for (let j = 0; j < N; j++) {
       cell = canvas.rows[i].cells[j];
