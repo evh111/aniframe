@@ -47,7 +47,7 @@ for (let f = 0; f < 10; f++) {
     }
     frame.push(row);
   }
-  animation.push(frame);
+  animation.frames.push(frame);
 }
 
 color.addEventListener('click', function() {});
