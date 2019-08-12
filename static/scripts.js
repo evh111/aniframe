@@ -3,14 +3,14 @@ let sizePicker = document.getElementById('sizePicker');
 let color = document.getElementById('palette');
 
 // Sets default index to 0
-var frameIndex = '0';
+var frameIndex = 0;
 
 // Sets default 'pen' to white
 var penColor = '#ffffff';
 
 // Get the current 'frameIndex'
 function setIndex(frame) {
-  var frameIndex = frame.getAttribute('data-value');
+  frameIndex = Number(frame.getAttribute('data-value'));
   // DELETE
   console.log(frameIndex);
 }
@@ -31,6 +31,11 @@ let colormap = {
   '#ffff00': 0b110,
   '#ffffff': 0b111
 };
+
+
+// Creates the grid
+makeGrid();
+
 
 // Global animation array
 animation = { frames: [] };
@@ -66,9 +71,6 @@ function makeGrid() {
   }
 }
 
-// Creates the grid
-makeGrid();
-
 // Colors in selected cell with the value of penColor
 // then, maps the updated cell to the controller
 function fillSquare() {
@@ -88,33 +90,6 @@ function clearGrid() {
   document.location.reload(true);
 }
 
-function getFrameAsJSON() {
-  // Make an object that contains an array of frames
-  let animation = {
-    frames: [
-      [
-        // Rows go in here as arrays
-      ]
-    ]
-  };
-  M = canvas.rows.length;
-  N = canvas.rows[0].cells.length;
-  // Loops over each cell and adds an attribute to the first frame
-  // REMINDER: Needs to handle mutiple frames
-  // SUGGESTION: Have an index that they (the user?) controls from the UI
-  for (let i = 0; i < M; i++) {
-    let row = [];
-    for (let j = 0; j < N; j++) {
-      cell = canvas.rows[i].cells[j];
-      // REMINDER: Modify to restrict this to our pallette
-      row.push(cell.getAttribute('controller-color'));
-      //animation.frames[0].push(cell.getAttribute('controller-color'));
-    }
-    animation.frames[0].push(row);
-  }
-  console.log(JSON.stringify(animation));
-  $.post('/animation', JSON.stringify(animation, null, 4), null, 'json');
-}
 
 function currentFrame() {
   M = canvas.rows.length;
@@ -127,5 +102,6 @@ function currentFrame() {
       );
     }
   }
-  console.log(JSON.stringify(animation, null, 4), null, 'json');
+  $.post('/animation', JSON.stringify(animation, null, 4), null, 'json');
+  //console.log(JSON.stringify(animation, null, 4), null, 'json');
 }
