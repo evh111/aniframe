@@ -79,7 +79,7 @@ function fillSquare() {
     alert(`That color isn't supported by the controller`);
   } else {
     this.setAttribute('controller-color', `${colormap[penColor]}`);
-    getFrameAsJSON();
+    currentFrame();
   }
 }
 
@@ -117,7 +117,9 @@ function getFrameAsJSON() {
 }
 
 function currentFrame() {
+  M = canvas.rows.length;
   for (let i = 0; i < M; i++) {
+    N = canvas.rows[0].cells.length;
     for (let j = 0; j < N; j++) {
       cell = canvas.rows[i].cells[j];
       animation.frames[frameIndex][i][j] = cell.getAttribute(
@@ -125,5 +127,5 @@ function currentFrame() {
       );
     }
   }
-  console.log(JSON.stringify(animation));
+  console.log(JSON.stringify(animation, null, 4), null, 'json');
 }
