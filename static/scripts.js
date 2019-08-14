@@ -12,8 +12,8 @@ var penColor = '#ffffff';
 function setIndex(frame) {
   // Converts 'data-value' into a number
   frameIndex = Number(frame.getAttribute('data-value'));
-  // DELETE
-  console.log(frameIndex);
+  frame.style.backgroundColor = '#00ff00';
+  frame.style.color = '#000000';
 }
 
 // Sets the selected color as a 'pen'
@@ -84,12 +84,26 @@ function fillSquare() {
   }
 }
 
-// Clears grid of all colored cells (by reloading the page)
+// Clears grid of all colored cells
 function clearGrid() {
-  // Change to loop and set to black frames and reset 'frameIndex' to one
-  document.location.reload(true);
+  // Loop to set to black frames and reset 'frameIndex' to 0
+  frameIndex = 0;
+  for (let f = 0; f < 10; f++) {
+    let frame = [];
+    M = canvas.rows.length;
+    for (let i = 0; i < M; i++) {
+      let row = [];
+      N = canvas.rows[0].cells.length;
+      for (let j = 0; j < N; j++) {
+        row.push(0);
+      }
+      frame.push(row);
+    }
+    animation.frames.push(frame);
+  }
 }
 
+// Sends a frame as an array of JSON
 function currentFrame() {
   M = canvas.rows.length;
   for (let i = 0; i < M; i++) {
