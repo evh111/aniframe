@@ -1,6 +1,7 @@
 let canvas = document.getElementById('pixel_canvas');
 let sizePicker = document.getElementById('sizePicker');
 let color = document.getElementById('palette');
+let frames = document.getElementById('frames');
 
 // Sets default index to 0
 var frameIndex = 0;
@@ -12,8 +13,6 @@ var penColor = '#ffffff';
 function setIndex(frame) {
   // Converts 'data-value' into a number
   frameIndex = Number(frame.getAttribute('data-value'));
-  frame.style.backgroundColor = '#00ff00';
-  frame.style.color = '#000000';
 }
 
 // Sets the selected color as a 'pen'
