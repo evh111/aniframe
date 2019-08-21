@@ -82,6 +82,11 @@ button:focus {
   outline: none;
 }
 
+.selected {
+  color: #000000;
+  background-color: #00ff00;
+}
+
 @media screen and (max-width: 480px) {
   .mainTitle {
     font-size: 1.1rem;

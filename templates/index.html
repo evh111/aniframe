@@ -23,11 +23,10 @@
       </div>
       <p class='note'>* Note: any pixel left or colored as black will not be displayed on the matrix</p>
       <div id='frames' class='frames'>
-          <table>
+          <table id='frame-table'>
             <tr>
               <div>
-                <td onclick="setIndex(this)" class="table-style" id='frame' data-value="0">1</td>
-              </div>
+                <td onclick="setIndex(this)" class="table-style selected" id='frame' data-value="0">1</td>
               </div>
               <div>
                 <td onclick="setIndex(this)" class="table-style" id='frame' data-value="1">2</td>

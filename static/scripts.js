@@ -1,7 +1,9 @@
 let canvas = document.getElementById('pixel_canvas');
 let sizePicker = document.getElementById('sizePicker');
 let color = document.getElementById('palette');
+let frameTable = document.getElementById('frame-table');
 let frames = document.getElementById('frames');
+let frame = document.getElementById('frame');
 
 // Sets default index to 0
 var frameIndex = 0;
@@ -11,8 +13,11 @@ var penColor = '#ffffff';
 
 // Get the current 'frameIndex'
 function setIndex(frame) {
+  // Adjust UI
+  frameTable.rows[0].cells[frameIndex].classList.remove('selection');
   // Converts 'data-value' into a number
   frameIndex = Number(frame.getAttribute('data-value'));
+  frame.classList.add('selected');
 }
 
 // Sets the selected color as a 'pen'
