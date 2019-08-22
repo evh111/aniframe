@@ -1,25 +1,8 @@
+/* Global */
 body {
   text-align: center;
   font-family: 'Gugi', cursive;
   background-color: #000000;
-}
-
-.mainTitle {
-  font-size: 55px;
-  color: #00ff00;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.note {
-  color: #00ff00;
-  margin-bottom: 30px;
-}
-
-.frames {
-  margin-top: 20px;
-  margin-right: 770px;
-  color: #00ff00;
 }
 
 table,
@@ -40,26 +23,11 @@ tr {
 .table-style:hover {
   color: #000000;
   background-color: #00ff00;
-  cursor: default;
+  cursor: pointer;
 }
 
 td {
   width: 35px;
-}
-
-.pen {
-  display: inline-block;
-  width: 35px;
-  height: 35px;
-  border: 2px solid #00ff00;
-  border-radius: 50%;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  transition: all 0.2s ease-in-out;
-}
-
-.pen:hover {
-  transform: scale(1.1);
 }
 
 .button {
@@ -82,11 +50,76 @@ button:focus {
   outline: none;
 }
 
+/* Pixel Canvas */
+.pixel-canvas:hover {
+  cursor: url(cursor.cur), url(cursor/cursor.cur), default;
+}
+
+/* Page Title */
+.mainTitle {
+  font-size: 55px;
+  color: #00ff00;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Note */
+.note {
+  color: #00ff00;
+  margin-bottom: 30px;
+}
+
+/* Frame index selectors */
+.frames {
+  margin-top: 20px;
+  margin-right: 770px;
+  color: #00ff00;
+}
+
+/* Added/removed (frame index selectors) */
 .selected {
   color: #000000;
   background-color: #00ff00;
 }
 
+/* Frame rate selectors */
+.frame-rate,
+.frame-rate-minus,
+.frame-rate-plus {
+  color: #00ff00;
+  background-color: #000000;
+  font-size: 17px;
+}
+
+.frame-rate:hover {
+  cursor: default;
+}
+
+.frame-rate-minus:hover,
+.frame-rate-plus:hover {
+  color: #000000;
+  background-color: #00ff00;
+  cursor: pointer;
+}
+
+/* Color selectors */
+.pen {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  border: 2px solid #00ff00;
+  border-radius: 50%;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.pen:hover {
+  transform: scale(1.1);
+}
+
+/* Media queries */
 @media screen and (max-width: 480px) {
   .mainTitle {
     font-size: 1.1rem;

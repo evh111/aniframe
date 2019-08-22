@@ -58,7 +58,13 @@
             </tr>
           </table>
         </div>
-      <table id="pixel_canvas"></table>
+      <table class='pixel-canvas' id="pixel-canvas">
+        <div>
+          <td onclick="setFrameRate(this)" class='frame-rate-minus' id='frame-rate-minus'>-</td>
+          <td onclick="setFrameRate(this)" class='frame-rate' id='frame-rate'>30</td>
+          <td onclick="setFrameRate(this)" class='frame-rate-plus' id='frame-rate-plus'>+</td>
+        </div>
+      </table>
       <div id="palette">
         <div
           class="pen"
