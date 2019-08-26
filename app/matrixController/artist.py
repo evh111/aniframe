@@ -25,7 +25,7 @@ class MatrixArtist:
     def __init__(self, device, frameRate=3):
         self.device = device
         self.frameRate = frameRate  # frames per second
-        # framedata is just a single black frame initially
+        # 'framedata' is just a single black frame initially
         self.frameData = np.full(
             (1, self.device.M, self.device.N),
             Pixel.fromBinary(0b000)
@@ -36,12 +36,16 @@ class MatrixArtist:
 
         # Make a Repeater to make a callback every so often.
         # period = 1 / frequency
-        self.frameTimer = Repeater(1.0 / self.frameRate, self.triggerNextFrame)
+        self.frameTimer = Repeater(1.0 / frameRate, self.triggerNextFrame)
         self.frameTimer.start()
 
+    @LockoutTagout(matrixDataTag)
     def triggerNextFrame(self):
         self.currentFrameIndex += 1
         self.currentFrameIndex %= len(self.frameData)
+
+    def setFrameRate(self, data):
+        self.frameTimer = Repeater(1.0 / data, self.triggerNextFrame)
 
     def updateData(self, data):
         # the data is already passed to it as a python dict

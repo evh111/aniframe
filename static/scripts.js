@@ -30,6 +30,7 @@ function frameRateUp(max) {
   if (frameRate.value >= parseInt(max)) {
     frameRate.value = max;
   }
+  $.post('/framerate', frameRate.value);
   console.log(frameRate.value);
 }
 
@@ -38,7 +39,8 @@ function frameRateDown(min) {
   if (frameRate.value <= parseInt(min)) {
     frameRate.value = min;
   }
-  console.log(frameRate.value);
+  $.post('/framerate', JSON.stringify(frameRate.value, null, 4), null, 'json');
+  console.log(JSON.stringify(frameRate.value));
 }
 
 // Supported color palette (does not handle PWM)

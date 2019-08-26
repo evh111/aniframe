@@ -25,6 +25,12 @@ if __name__ == '__main__':
     def updateData(data):
         controller.updateData(data)
 
+    @LockoutTagout(matrixDataTag)
+    def updateFrameRate(data):
+        controller.updateFrameRate(data)
+
+    # Add 'LockoutTagout' to setFrameIndex when created
+
     @flaskApp.route('/')
     def index():
         return render_template('index.html')
@@ -32,6 +38,12 @@ if __name__ == '__main__':
     @flaskApp.route('/animation', methods=['POST'])
     def animation():
         updateData(request.get_json(force=True))
+        return '', 200
+
+    @flaskApp.route('/framerate', methods=['POST'])
+    def framerate():
+        frameRate = int(request.get_data(as_text=True))
+        updateFrameRate(frameRate)
         return '', 200
 
     # argparse to make virtual matrix optional

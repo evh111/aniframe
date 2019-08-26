@@ -30,5 +30,8 @@ class Controller:
         """
         self.artist.updateData(data)
 
+    def updateFrameRate(self, data):
+        self.artist.setFrameRate(data)
+
     def begin(self):
         self.artist.startPainting()
