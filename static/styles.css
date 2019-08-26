@@ -2,7 +2,7 @@
 body {
   text-align: center;
   font-family: 'Gugi', cursive;
-  background-color: #000000;
+  background: #000000;
 }
 
 table,
@@ -22,7 +22,7 @@ tr {
 
 .table-style:hover {
   color: #000000;
-  background-color: #00ff00;
+  background: #00ff00;
   cursor: pointer;
 }
 
@@ -50,9 +50,17 @@ button:focus {
   outline: none;
 }
 
+::selection {
+  background: transparent;
+}
+::-moz-selection {
+  /* Code for Firefox */
+  background: transparent;
+}
+
 /* Pixel Canvas */
 .pixel-canvas:hover {
-  cursor: url(cursor.cur), url(cursor/cursor.cur), default;
+  cursor: url(cursor.cur) default;
 }
 
 /* Page Title */
@@ -79,16 +87,30 @@ button:focus {
 /* Added/removed (frame index selectors) */
 .selected {
   color: #000000;
-  background-color: #00ff00;
+  background: #00ff00;
 }
 
 /* Frame rate selectors */
+.frame-rate-selector {
+  margin-right: 1015px;
+}
+
 .frame-rate,
 .frame-rate-minus,
 .frame-rate-plus {
   color: #00ff00;
-  background-color: #000000;
-  font-size: 17px;
+  background: #000000;
+  font-size: 16px;
+}
+
+.frame-rate {
+  border: #000000;
+  font-size: 20px;
+  text-align: center;
+}
+
+.frame-rate:focus {
+  outline: none;
 }
 
 .frame-rate:hover {
@@ -98,7 +120,7 @@ button:focus {
 .frame-rate-minus:hover,
 .frame-rate-plus:hover {
   color: #000000;
-  background-color: #00ff00;
+  background: #00ff00;
   cursor: pointer;
 }
 
@@ -109,7 +131,7 @@ button:focus {
   height: 35px;
   border: 2px solid #00ff00;
   border-radius: 50%;
-  margin-top: 30px;
+  margin-top: 15px;
   margin-bottom: 15px;
   transition: all 0.2s ease-in-out;
   cursor: pointer;

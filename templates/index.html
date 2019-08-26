@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="">
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Audiowide&text=Pixel%Art%Maker"
@@ -58,13 +59,16 @@
             </tr>
           </table>
         </div>
-      <table class='pixel-canvas' id="pixel-canvas">
-        <div>
-          <td onclick="setFrameRate(this)" class='frame-rate-minus' id='frame-rate-minus'>-</td>
-          <td onclick="setFrameRate(this)" class='frame-rate' id='frame-rate'>30</td>
-          <td onclick="setFrameRate(this)" class='frame-rate-plus' id='frame-rate-plus'>+</td>
-        </div>
-      </table>
+      <table class='pixel-canvas' id='pixel-canvas'></table>
+      <div class='frame-rate-selector'>
+        <table>
+          <td onclick="frameRateDown('0')" class='frame-rate-plus'>-</td>
+            <td>
+              <input class='frame-rate' id='frame-rate' type='text' size='2' value='0' disabled>
+            </td>
+          <td onclick="frameRateUp('10')" class='frame-rate-plus'>+</td>
+        </table>
+      </div>
       <div id="palette">
         <div
           class="pen"

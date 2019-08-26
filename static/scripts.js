@@ -3,6 +3,7 @@ let color = document.getElementById('palette');
 let frameTable = document.getElementById('frame-table');
 let frames = document.getElementById('frames');
 let frame = document.getElementById('frame');
+let frameRate = document.getElementById('frame-rate');
 
 // Sets default index to 0
 var frameIndex = 0;
@@ -19,13 +20,25 @@ function setIndex(frame) {
   frame.classList.add('selected');
 }
 
-function setFrameRate() {
-  // Do stuff
-}
-
 // Sets the selected color as a 'pen'
 function setPenColor(pen) {
   penColor = pen;
+}
+
+function frameRateUp(max) {
+  frameRate.value = parseInt(frameRate.value) + 1;
+  if (frameRate.value >= parseInt(max)) {
+    frameRate.value = max;
+  }
+  console.log(frameRate.value);
+}
+
+function frameRateDown(min) {
+  frameRate.value = parseInt(frameRate.value) - 1;
+  if (frameRate.value <= parseInt(min)) {
+    frameRate.value = min;
+  }
+  console.log(frameRate.value);
 }
 
 // Supported color palette (does not handle PWM)
