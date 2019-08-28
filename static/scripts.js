@@ -39,8 +39,8 @@ function frameRateDown(min) {
   if (frameRate.value <= parseInt(min)) {
     frameRate.value = min;
   }
-  $.post('/framerate', JSON.stringify(frameRate.value, null, 4), null, 'json');
-  console.log(JSON.stringify(frameRate.value));
+  $.post('/framerate', frameRate.value);
+  console.log(frameRate.value);
 }
 
 // Supported color palette (does not handle PWM)

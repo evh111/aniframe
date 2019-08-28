@@ -45,7 +45,7 @@ class MatrixArtist:
         self.currentFrameIndex %= len(self.frameData)
 
     def setFrameRate(self, data):
-        self.frameTimer = Repeater(1.0 / data, self.triggerNextFrame)
+        self.frameTimer.setInterval(1.0 / data)
 
     def updateData(self, data):
         # the data is already passed to it as a python dict
