@@ -12,6 +12,9 @@ class Repeater:
         self.func = func
         self.timer = None
 
+    def setInterval(self, interval):
+        self.interval = interval
+
     def start(self):
         # the actual timer calls THIS method again,
         # instead of the wrapped function.
