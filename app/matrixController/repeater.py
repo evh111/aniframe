@@ -22,6 +22,7 @@ class Repeater:
         self.timer.cancel()
 
     def resume(self):
+        self.timer.cancel()
         self.start()
 
     def start(self):

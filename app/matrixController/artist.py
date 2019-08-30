@@ -39,7 +39,6 @@ class MatrixArtist:
         self.frameTimer = Repeater(1.0 / frameRate, self.triggerNextFrame)
         self.frameTimer.start()
 
-    @LockoutTagout(matrixDataTag)
     def triggerNextFrame(self):
         self.currentFrameIndex += 1
         self.currentFrameIndex %= len(self.frameData)
