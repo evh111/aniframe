@@ -18,6 +18,8 @@ function setIndex(frame) {
   // Converts 'data-value' into a number
   frameIndex = Number(frame.getAttribute('data-value'));
   frame.classList.add('selected');
+  $.post('/framerate', frameRate);
+  console.log(frameRate);
 }
 
 // Sets the selected color as a 'pen'

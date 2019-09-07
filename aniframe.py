@@ -46,6 +46,13 @@ if __name__ == '__main__':
         updateFrameRate(frameRate)
         return '', 200
 
+    @flaskApp.route('/frameindex', methods=['POST'])
+    def frameindex():
+        frameIndex = int(request.get_data(as_text=True))
+        console.log(frameIndex)
+        # Add method from artist
+        return '', 200
+
     # argparse to make virtual matrix optional
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--virtual',
